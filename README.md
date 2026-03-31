@@ -29,3 +29,20 @@ L'ensemble du workflow est réalisé sans extraction de données, en utilisant l
 *   `/notebooks` : Contient le Notebook Snowflake avec l'intégralité du pipeline ML.
 *   `/app` : Code source de l'application Streamlit.
 *   `README.md` : Documentation du projet.
+
+## 📊 Description du Dataset
+Le dataset contient des informations clés sur les caractéristiques des habitations. Voici le détail des variables :
+
+*   **price** : Prix de vente de la maison (Variable cible).
+*   **area** : Surface totale en mètres carrés.
+*   **bedrooms** : Nombre de chambres.
+*   **bathrooms** : Nombre de salles de bain.
+*   **stories** : Nombre d'étages.
+*   **mainroad** : Accès à une route principale (OUI/NON).
+*   **guestroom** : Présence d'une chambre d'amis (OUI/NON).
+*   **basement** : Présence d'un sous-sol (OUI/NON).
+*   **hotwaterheating** : Présence d'un chauffage à eau chaude (OUI/NON).
+*   **airconditioning** : Présence de la climatisation (OUI/NON).
+*   **parking** : Nombre de places de stationnement.
+*   **prefarea** : Située dans une zone privilégiée (OUI/NON).
+*   **furnishingstatus** : État d'ameublement (meublé, semi-meublé, non meublé).
