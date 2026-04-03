@@ -46,3 +46,45 @@ Le dataset contient des informations clés sur les caractéristiques des habitat
 *   **parking** : Nombre de places de stationnement.
 *   **prefarea** : Située dans une zone privilégiée (OUI/NON).
 *   **furnishingstatus** : État d'ameublement (meublé, semi-meublé, non meublé).
+
+# Section 1 : Data Engineering & Exploration des Données (EDA)
+
+## 1. Description du Dataset
+Ce projet s'appuie sur un jeu de données immobilier regroupant les caractéristiques de diverses habitations ainsi que leurs prix de vente respectifs. L'objectif est de comprendre l'influence de facteurs clés (surface, nombre de pièces, équipements) sur la valeur marchande d'un bien immobilier.
+
+### Variable Cible (Target - y)
+*   **PRICE** : Le prix de vente final de la maison (Variable numérique continue).
+
+### Variables Explicatives (Features - X)
+*   **AREA** : Surface totale en mètres carrés.
+*   **BEDROOMS / BATHROOMS** : Nombre de chambres et de salles de bain.
+*   **STORIES** : Nombre total d'étages dans la maison.
+*   **MAINROAD / AIRCONDITIONING / BASEMENT** : Variables catégorielles indiquant la présence d'infrastructures ou d'équipements spécifiques (Yes/No).
+*   **PARKING** : Nombre de places de stationnement disponibles.
+*   **FURNISHINGSTATUS** : État d'ameublement de la maison (Furnished, Semi-furnished, Unfurnished).
+
+---
+
+## 2. Processus d'Ingestion (Data Engineering)
+L'ensemble du pipeline de données a été développé directement au sein de l'environnement **Snowflake** pour garantir la gouvernance et l'élasticité du traitement.
+
+*   **Configuration de l'environnement** : Création d'une base de données dédiée `HOUSE_PRICE_DB` et d'un schéma `RAW_DATA`.
+*   **Ingestion des données** : 
+    *   Mise en place d'un `STAGE` externe pointant vers un bucket S3 (`s3://logbrain-datalake/...`).
+    *   Définition d'un `FILE FORMAT` CSV pour structurer la lecture des fichiers bruts.
+    *   Chargement des données dans la table finale `HOUSE_DATA` via la commande `COPY INTO`.
+*   **Outils utilisés** : Snowflake SQL et Snowpark Python.
+
+---
+
+## 3. Analyse Exploratoire des Données (EDA)
+Avant la phase de modélisation, une exploration approfondie a été réalisée à l'aide de **Snowpark Python**, **Matplotlib** et **Seaborn**.
+
+### Statistiques et Qualité
+*   **Vérification des données** : Le dataset a été contrôlé pour détecter d'éventuelles valeurs nulles (0 valeur manquante identifiée lors de l'ingestion).
+*   **Analyses descriptives** : Calcul automatique des moyennes, écarts-types, minimums et maximums pour l'ensemble des variables numériques.
+
+### Visualisations clés
+*   **Distribution des prix** : L'analyse de la variable cible montre une distribution normale avec une légère asymétrie vers les prix élevés, typique du marché immobilier de luxe.
+*   **Matrice de corrélation** : Nous avons mis en évidence une corrélation positive significative entre la surface (`AREA`) et le prix de vente (`PRICE`).
+*   **Analyse catégorielle** : Visualisation de l'impact de la climatisation et de l'état d'ameublement sur la valeur des propriétés.
