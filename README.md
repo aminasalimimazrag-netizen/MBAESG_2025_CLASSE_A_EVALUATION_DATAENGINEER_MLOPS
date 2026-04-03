@@ -2,7 +2,7 @@
 Projet Snowflake &amp; Machine Learning - Prédiction des prix des maisons
 
 ## 👥 Membres du groupe
-*   **SALIMI MAZRAG AMINA** (Chef de Projet & Data Analyst)
+*   **SALIMI MAZRAG AMINA** (Chef de Projet & Data Engineer)
 *   **ELMAN NAJOUA** (Data Engineer / Scientist)
 *   **ELFATHI HAJAR** (Data Engineer / Scientist)
 
