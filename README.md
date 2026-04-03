@@ -88,3 +88,29 @@ Avant la phase de modélisation, une exploration approfondie a été réalisée 
 *   **Distribution des prix** : L'analyse de la variable cible montre une distribution normale avec une légère asymétrie vers les prix élevés, typique du marché immobilier de luxe.
 *   **Matrice de corrélation** : Nous avons mis en évidence une corrélation positive significative entre la surface (`AREA`) et le prix de vente (`PRICE`).
 *   **Analyse catégorielle** : Visualisation de l'impact de la climatisation et de l'état d'ameublement sur la valeur des propriétés.
+
+### 3. Analyse Exploratoire des Données (EDA)
+
+#### A. Qualité et Statistiques des Données
+Nous avons vérifié l'intégrité du dataset. On confirme l'absence de valeurs nulles et on observe des statistiques cohérentes pour les 50 premières lignes.
+
+![Qualité des données](images/data_quality.png)
+*Figure 1 : Aperçu des données et vérification des valeurs manquantes.*
+
+#### B. Analyse de la Variable Cible (Price)
+La distribution du prix montre que la majorité des propriétés se situent entre 8 et 10 millions, avec quelques propriétés de luxe au-delà de 12 millions.
+
+![Distribution des prix](images/price_distribution.png)
+*Figure 2 : Histogramme de la distribution des prix de vente.*
+
+#### C. Analyse des Corrélations
+La matrice de corrélation nous permet d'identifier que la surface (`AREA`) et le nombre de places de parking (`PARKING`) sont les variables les plus liées au prix.
+
+![Matrice de corrélation](images/correlation_matrix.png)
+*Figure 3 : Heatmap des corrélations entre les variables numériques.*
+
+#### D. Relation Surface vs Prix
+Ce graphique montre clairement que le prix augmente avec la surface, et que la présence de climatisation (Air Conditioning) influence positivement la valeur du bien.
+
+![Prix vs Surface](images/price_vs_area.png)
+*Figure 4 : Nuage de points montrant l'impact de la surface et de la clim sur le prix.*
