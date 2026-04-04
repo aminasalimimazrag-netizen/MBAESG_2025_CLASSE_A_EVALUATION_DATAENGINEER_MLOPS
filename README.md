@@ -58,6 +58,18 @@ Chargement des données dans la table finale HOUSE_DATA via la commande COPY INT
 **Outils utilisés** : Snowflake SQL et Snowpark Python.
 
 ## Analyse Exploratoire des Données (EDA) ##
+
+### Identification des variables
+Pour ce projet de prédiction immobilière, nous avons identifié les variables clés suivantes :
+
+*   **Variable cible (Target - y) :** 
+    *   `PRICE` : Le prix de vente final de la maison (Variable numérique continue).
+
+*   **Variables explicatives (Features - X) :**
+    *   **Numériques :** `AREA` (Surface), `BEDROOMS`, `BATHROOMS`, `STORIES`, `PARKING`.
+    *   **Catégorielles (Binaires) :** `MAINROAD`, `GUESTROOM`, `BASEMENT`, `HOTWATERHEATING`, `AIRCONDITIONING`, `PREFAREA` (Indicateurs Yes/No).
+    *   **Catégorielles (Nominales) :** `FURNISHINGSTATUS` (État d'ameublement : Furnished, Semi-furnished, Unfurnished).
+
 ### 1. Configuration de l'environnement
 L'initialisation du projet a été faite via un **Snowflake Notebook**. Nous avons configuré la base de données `HOUSE_PRICE_DB` et le schéma `RAW_DATA` pour garantir une structure de données propre.
 
