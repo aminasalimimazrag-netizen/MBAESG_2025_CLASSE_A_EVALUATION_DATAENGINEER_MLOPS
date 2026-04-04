@@ -28,7 +28,13 @@ L'ensemble du workflow est réalisé sans extraction de données, en utilisant l
 **Inférence et Application** : Développement d'une application Streamlit permettant aux utilisateurs de saisir des caractéristiques de maison et d'obtenir un prix estimé en temps réel.
 
 ## Structure du dépôt ##
-???
+*   **app/** : Contient le code source de l'application interactive (`streamlit_app.py`).
+*   **images/** : Dossier regroupant l'ensemble des captures d'écran, graphiques d'analyse (EDA) et métriques du modèle.
+*   **notebooks/** : 
+    *   `SCRIPT PYTHON SNOWFLAKE.ipynb` : Pipeline d'ingestion des données, traitement JSON et analyse exploratoire (Phase Data Engineering).
+    *   `Modelisation_ML.ipynb` : Pipeline d'entraînement, optimisation des hyperparamètres et enregistrement du modèle (Phase Machine Learning).
+*   **README.md** : Documentation complète du projet.
+  
 ## Description du Dataset ##
 
 Le dataset contient des informations clés sur les caractéristiques des habitations. Voici le détail des variables :
@@ -125,7 +131,7 @@ La matrice de corrélation révèle que la surface (`AREA`) et le nombre de sall
 *Figure 5 : Heatmap des corrélations entre variables numériques.*
 
 #### D. Relation Surface vs Prix
-Le nuage de points confirme la corrélation positive entre la surface et el precio, tout en mettant en évidence l'impact de la climatisation sur la valorisation du bien.
+Le nuage de points confirme la corrélation positive entre la surface et et le prix, tout en mettant en évidence l'impact de la climatisation sur la valorisation du bien.
 ![Prix vs Surface](images/price_vs_area.png)
 *Figure 6 : Analyse de l'impact de la surface et de l'Air Conditioning.*
 
