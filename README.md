@@ -13,12 +13,6 @@ Ce projet consiste à développer un pipeline complet de **Machine Learning** di
 
 L'ensemble du workflow est réalisé sans extraction de données, en utilisant les capacités de calcul de Snowflake et de **Snowpark**.
 
-## Technologies utilisées ##
-**Snowflake**: Plateforme de données cloud et moteur de calcul.
-**Snowpark** : Pour la manipulation des données en Python et SQL.
-**Snowflake ML & Model Registry** : Pour l'entraînement, l'optimisation et la gestion des versions du modèle.
-**Streamlit** : Pour la création d'une application interactive de prédiction.
-
 ## Étapes du Workshop ##
 **Ingestion et Exploration (EDA)** : Chargement des données depuis S3 et analyse des corrélations entre les variables.
 **Préparation des données** : Nettoyage, encodage des variables catégorielles et normalisation.
