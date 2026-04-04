@@ -114,3 +114,180 @@ Ce graphique montre clairement que le prix augmente avec la surface, et que la p
 
 ![Prix vs Surface](images/price_vs_area.png)
 *Figure 4 : Nuage de points montrant l'impact de la surface et de la clim sur le prix.*
+
+# Analyse et Modélisation — Prédiction du Prix Immobilier
+## Pipeline de données
+
+### Ingestion
+Les données sont chargées depuis un bucket S3 public au format **JSON** via un stage Snowflake, puis transformées en table structurée `HOUSE_PRICES` dans Snowflake.
+
+### Feature Engineering
+Les transformations suivantes ont été appliquées avant l'entraînement :
+
+- **Encodage binaire** : les colonnes `yes/no` sont converties en `1/0`
+  *(MAINROAD, GUESTROOM, BASEMENT, HOTWATERHEATING, AIRCONDITIONING, PREFAREA)*
+- **Encodage ordinal** : `FURNISHINGSTATUS` → furnished=2, semi-furnished=1, unfurnished=0
+- **Normalisation** : StandardScaler (moyenne=0, écart-type=1) appliqué sur toutes les features numériques
+- **Split train/test** : 80% entraînement (872 lignes) / 20% test (218 lignes), `random_state=42`
+
+---
+
+## Résultats des modèles de base
+
+Six modèles ont été entraînés et comparés sur le jeu de test :
+
+| Modèle | RMSE | MAE | R² |
+|--------|------|-----|----|
+| **XGBoost** | **27 517** | **12 757** | **0.9151** |
+| RandomForest | 32 513 | 19 587 | 0.8815 |
+| GradientBoosting | 42 495 | 31 394 | 0.7975 |
+| Lasso (alpha=100) | 53 968 | 40 214 | 0.6734 |
+| LinearRegression | 53 985 | 40 253 | 0.6732 |
+| Ridge (alpha=1) | 53 988 | 40 253 | 0.6731 |
+
+![Entraînement des 6 modèles](images/image1.png)
+
+
+ **XGBoost** est le meilleur modèle de base avec un R² de **0.9151**, signifiant qu'il explique 91.5% de la variance des prix. Les modèles linéaires (Linear, Ridge, Lasso) plafonnent à ~0.67, montrant que la relation entre les features et le prix est non-linéaire.
+
+
+## Comparaison visuelle des modèles
+
+![Comparaison des modèles](images/image2.png)
+
+
+## Meilleur modèle de base : XGBoost (R²=0.9151)
+
+Le graphique ci-dessous montre les prix prédits vs les prix réels. Les points proches de la ligne rouge indiquent une bonne précision du modèle.
+
+![Prédits vs Réels XGBoost base](images/image3.png)
+
+
+## Optimisation des hyperparamètres
+
+### GridSearchCV — RandomForest
+- **Nombre de combinaisons testées :** 216 candidats × 5 folds = 1 080 fits
+- **Meilleurs paramètres :**
+
+```
+max_depth        = 20
+max_features     = sqrt
+min_samples_leaf = 1
+min_samples_split= 2
+n_estimators     = 300
+```
+- **Meilleur R² en CV :** 0.8560
+
+### RandomizedSearchCV — XGBoost
+- **Nombre de combinaisons testées :** 40 candidats × 5 folds = 200 fits
+- **Meilleurs paramètres :**
+
+```
+n_estimators     = 500
+max_depth        = 10
+learning_rate    = 0.05
+subsample        = 0.8
+colsample_bytree = 0.6
+reg_alpha        = 1.0
+reg_lambda       = 2
+```
+- **Meilleur R² en CV :** 0.8606
+
+
+![Optimisation des hyperparamètres](images/image4.png)
+
+
+## Comparaison avant / après optimisation
+
+| Modèle | RMSE | R² |
+|--------|------|----|
+| RandomForest base | 32 513 | 0.8815 |
+| RandomForest tuned | 28 217 | 0.9107 |
+| XGBoost base | 27 517 | 0.9151 |
+| **XGBoost tuned** | **25 594** | **0.9265** |
+
+L'optimisation a permis de **réduire le RMSE de 7%** sur XGBoost et d'**augmenter le R² de 0.9151 à 0.9265**.
+
+
+![Impact de l'optimisation](images/image5.png)
+
+
+## Modèle final sélectionné : XGBoost (tuned)
+
+| Métrique | Valeur |
+|----------|--------|
+| **R²** | **0.9265** |
+| **RMSE** | **25 594** |
+| **MAE** | **10 677** |
+
+Le modèle explique **92.65%** de la variance des prix immobiliers sur le jeu de test. L'erreur absolue moyenne est de **10 677**, ce qui représente une précision très satisfaisante compte tenu de la distribution des prix (entre 98 000 et 665 000).
+
+
+## Importance des features
+
+Classement des features selon leur contribution au modèle XGBoost final :
+
+| Rang | Feature | Importance |
+|------|---------|-----------|
+| 1 | **BATHROOMS** | 0.298 |
+| 2 | AIRCONDITIONING | 0.099 |
+| 3 | AREA | 0.092 |
+| 4 | PARKING | 0.069 |
+| 5 | STORIES | 0.065 |
+| 6 | BASEMENT | 0.065 |
+| 7 | GUESTROOM | 0.060 |
+| 8 | FURNISHINGSTATUS | 0.059 |
+| 9 | PREFAREA | 0.054 |
+| 10 | MAINROAD | 0.052 |
+| 11 | BEDROOMS | 0.043 |
+| 12 | HOTWATERHEATING | 0.043 |
+
+
+![Importance des features](images/image6.png)
+
+> **Interprétation :** Le nombre de salles de bain (`BATHROOMS`) est de loin le facteur le plus déterminant (29.8%), suivi de la présence de la climatisation (9.9%) et de la surface (9.2%). Le chauffage à eau chaude (`HOTWATERHEATING`) est le facteur le moins influent (4.3%).
+
+
+## Analyse des résidus
+
+L'analyse des résidus du modèle XGBoost (tuned) confirme sa qualité :
+
+- **Distribution des résidus** : centrée autour de 0, avec une légère asymétrie sur les valeurs extrêmes
+- **Résidus vs valeurs prédites** : bien distribués horizontalement autour de 0, sans pattern systématique
+- Ces deux indicateurs confirment que le modèle ne souffre pas de biais structurel
+
+
+![Analyse des résidus](images/image7.png)
+
+
+## Stockage dans le Snowflake Model Registry
+
+Le modèle final a été enregistré dans le **Snowflake Model Registry** :
+
+```
+Modèle   : HOUSE_PRICE_MODEL
+Version  : V1
+Registry : HOUSE_PRICE_DB.ML_SCHEMA
+Stage    : @HOUSE_PRICE_DB.ML_SCHEMA.model_stage
+R²       : 0.9265
+RMSE     : 25 594
+MAE      : 10 677
+```
+
+
+![Model Registry](images/image8.png)
+
+
+## Technologies utilisées
+
+| Outil | Usage |
+|-------|-------|
+| **Snowflake** | Plateforme de données et exécution |
+| **Snowpark** | Manipulation des données en Python |
+| **Snowflake Notebooks** | Environnement de développement |
+| **Snowflake Model Registry** | Versioning et stockage du modèle |
+| **scikit-learn** | Modèles ML, preprocessing, validation croisée |
+| **XGBoost** | Modèle final retenu |
+| **pandas / numpy** | Manipulation des données |
+| **matplotlib / seaborn** | Visualisation |
+| **Streamlit in Snowflake** | Application utilisateur finale |
