@@ -58,9 +58,6 @@ Chargement des données dans la table finale HOUSE_DATA via la commande COPY INT
 **Outils utilisés** : Snowflake SQL et Snowpark Python.
 
 ## Analyse Exploratoire des Données (EDA) ##
-Avant la phase de modélisation, une exploration approfondie a été réalisée à l'aide de Snowpark Python, Matplotlib et Seaborn.
-
-## Analyse Exploratoire des Données (EDA) ##
 ### 1. Configuration de l'environnement
 L'initialisation du projet a été faite via un **Snowflake Notebook**. Nous avons configuré la base de données `HOUSE_PRICE_DB` et le schéma `RAW_DATA` pour garantir une structure de données propre.
 
