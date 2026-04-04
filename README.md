@@ -27,6 +27,7 @@ L'ensemble du workflow est réalisé sans extraction de données, en utilisant l
 *   **notebooks/** : 
     *   `SCRIPT PYTHON SNOWFLAKE.ipynb` : Pipeline d'ingestion des données, traitement JSON et analyse exploratoire (Phase Data Engineering).
     *   `Modelisation_ML.ipynb` : Pipeline d'entraînement, optimisation des hyperparamètres et enregistrement du modèle (Phase Machine Learning).
+    *    `modelisation_code.ipynb` : Script complémentaire de modélisation.
 *   **README.md** : Documentation complète du projet.
 
 ---
