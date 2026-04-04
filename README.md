@@ -317,7 +317,6 @@ Une application interactive développée avec **Streamlit in Snowflake** permet 
 - Affichage du prix estimé en euros
 - Tableau récapitulatif des caractéristiques saisies
 
-
 ### Exemple de prédiction
 Pour une maison de **5 000 sqft**, **3 chambres**, **1 salle de bain**, **2 étages**, avec climatisation :
 
@@ -326,4 +325,3 @@ Pour une maison de **5 000 sqft**, **3 chambres**, **1 salle de bain**, **2 éta
 | ![Prédiction](images/app_prediction.png) | ![Résumé](images/app_summary.png) |
 
 > 💵 **Prix estimé : 384 179 €**
-> Le modèle traite les caractéristiques en temps réel via une UDF Snowflake et retourne l'estimation instantanément.
