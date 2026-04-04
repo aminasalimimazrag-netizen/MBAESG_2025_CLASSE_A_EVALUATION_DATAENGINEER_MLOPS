@@ -320,10 +320,10 @@ Une application interactive développée avec **Streamlit in Snowflake** permet 
 
 ### Exemple de prédiction
 Pour une maison de **5 000 sqft**, **3 chambres**, **1 salle de bain**, **2 étages**, avec climatisation :
+
+| Interface de Prédiction | Récapitulatif des Saisies |
+| :---: | :---: |
+| ![Prédiction](images/app_prediction.png) | ![Résumé](images/app_summary.png) |
+
 > 💵 **Prix estimé : 384 179 €**
-![screanshoot](images/app st 1.png)
-### Lancer l'application
-L'application est hébergée directement dans **Snowflake Streamlit Apps** :
-1. Aller dans Snowflake → **Projects → Streamlit**
-2. Ouvrir **app_streamlit**
-3. Cliquer sur **Run**
+> Le modèle traite les caractéristiques en temps réel via une UDF Snowflake et retourne l'estimation instantanément.
