@@ -280,7 +280,7 @@ Une application interactive développée avec **Streamlit in Snowflake** permet 
 ### Exemple de prédiction
 Pour une maison de **5 000 sqft**, **3 chambres**, **1 salle de bain**, **2 étages**, avec climatisation :
 > 💵 **Prix estimé : 384 179 €**
-
+![screanshoot](images/app st 1.png)
 ### Lancer l'application
 L'application est hébergée directement dans **Snowflake Streamlit Apps** :
 1. Aller dans Snowflake → **Projects → Streamlit**
