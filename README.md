@@ -1,23 +1,23 @@
 # MBAESG_2025_CLASSE_A_EVALUATION_DATAENGINEER_MLOPS
 Projet Snowflake &amp; Machine Learning - Prédiction des prix des maisons
 
-## 👥 Membres du groupe
+## Membres du groupe
 *   **SALIMI MAZRAG AMINA** (Chef de Projet & Data Engineer)
-*   **ELMAN NAJOUA** (Data Engineer / Scientist)
-*   **ELFATHI HAJAR** (Data Engineer / Scientist)
+*   **EL MANSOUF NAJOUA** (Data Engineer / Scientist)
+*   **EL FATHI HAJAR** (Data Engineer / Scientist)
 
-## 📝 Description du Projet
+## Description du Projet
 Ce projet consiste à développer un pipeline complet de **Machine Learning** directement au sein de la plateforme **Snowflake**. L'objectif est de construire un modèle prédictif capable d'estimer le prix de vente des propriétés immobilières en fonction de diverses caractéristiques (surface, nombre de chambres, climatisation, etc.).
 
 L'ensemble du workflow est réalisé sans extraction de données, en utilisant les capacités de calcul de Snowflake et de Snowpark.
 
-## 🛠️ Technologies utilisées
+## Technologies utilisées
 *   **Snowflake** : Plateforme de données cloud et moteur de calcul.
 *   **Snowpark** : Pour la manipulation des données en Python.
 *   **Snowflake ML & Model Registry** : Pour l'entraînement, l'optimisation et la gestion des versions du modèle.
 *   **Streamlit** : Pour la création d'une application interactive de prédiction.
 
-## 🚀 Étapes du Workshop
+## Étapes du Workshop
 1.  **Ingestion et Exploration (EDA)** : Chargement des données depuis S3 et analyse des corrélations entre les variables.
 2.  **Préparation des données** : Nettoyage, encodage des variables catégorielles et normalisation.
 3.  **Entraînement du modèle** : Utilisation de bibliothèques ML (Scikit-learn / XGBoost) pour entraîner les modèles.
@@ -25,12 +25,12 @@ L'ensemble du workflow est réalisé sans extraction de données, en utilisant l
 5.  **Gouvernance (Model Registry)** : Enregistrement du meilleur modèle dans le registre Snowflake pour la mise en production.
 6.  **Inférence et Application** : Développement d'une application Streamlit permettant aux utilisateurs de saisir des caractéristiques de maison et d'obtenir un prix estimé en temps réel.
 
-## 📂 Structure du dépôt
+## Structure du dépôt
 *   `/notebooks` : Contient le Notebook Snowflake avec l'intégralité du pipeline ML.
 *   `/app` : Code source de l'application Streamlit.
 *   `README.md` : Documentation du projet.
 
-## 📊 Description du Dataset
+## Description du Dataset
 Le dataset contient des informations clés sur les caractéristiques des habitations. Voici le détail des variables :
 
 *   **price** : Prix de vente de la maison (Variable cible).
