@@ -28,24 +28,6 @@ L'ensemble du workflow est réalisé sans extraction de données, en utilisant l
     *   `SCRIPT PYTHON SNOWFLAKE.ipynb` : Pipeline d'ingestion des données, traitement JSON et analyse exploratoire (Phase Data Engineering).
     *   `Modelisation_ML.ipynb` : Pipeline d'entraînement, optimisation des hyperparamètres et enregistrement du modèle (Phase Machine Learning).
 *   **README.md** : Documentation complète du projet.
-  
-## Description du Dataset ##
-
-Le dataset contient des informations clés sur les caractéristiques des habitations. Voici le détail des variables :
-
-**Price** : Prix de vente de la maison (Variable cible).
-**Area** : Surface totale en mètres carrés.
-**Bedrooms** : Nombre de chambres.
-**Bathrooms** : Nombre de salles de bain.
-**Stories** : Nombre d'étages.
-**Mainroad** : Accès à une route principale (OUI/NON).
-**Guestroom** : Présence d'une chambre d'amis (OUI/NON).
-**Basement** : Présence d'un sous-sol (OUI/NON).
-**Hotwaterheating** : Présence d'un chauffage à eau chaude (OUI/NON).
-**Airconditioning** : Présence de la climatisation (OUI/NON).
-**Parking** : Nombre de places de stationnement.
-**Prefarea** : Située dans une zone privilégiée (OUI/NON).
-**Furnishingstatus** : État d'ameublement (meublé, semi-meublé, non meublé).
 
 ---
 
