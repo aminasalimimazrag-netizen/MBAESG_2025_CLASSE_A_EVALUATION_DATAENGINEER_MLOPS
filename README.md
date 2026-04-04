@@ -61,7 +61,7 @@ Chargement des données dans la table finale HOUSE_DATA via la commande COPY INT
 ### 1. Configuration de l'environnement
 L'initialisation du projet a été faite via un **Snowflake Notebook**. Nous avons configuré la base de données `HOUSE_PRICE_DB` et le schéma `RAW_DATA` pour garantir une structure de données propre.
 
-![Setup Environnement](images/setup.png)
+![Setup](images/setup_environment.png)
 *Figure 1 : Configuration de la session Snowpark et de l'espace de travail.*
 
 ### 2. Processus d'Ingestion (Data Engineering)
@@ -70,8 +70,8 @@ Les données sources étant au format **JSON (Array)** dans un bucket S3, nous a
 *   **Flattening :** Utilisation de la fonction `flatten()` de Snowpark pour transformer la liste JSON en lignes relationnelles.
 *   **Casting :** Typage strict des données (Integer pour les prix/surfaces, String pour les catégories).
 
-![Ingestion des données](images/ingestion.png)
-*Figure 2 : Pipeline d'aplatissage (flatten) et chargement dans la table HOUSE_DATA.*
+![Ingestion](images/data_ingestion.png)
+*Figure 2 : Pipeline d'aplatissage (flatten) et chargement des données.*
 
 ### 3. Analyse Exploratoire des Données (EDA)
 
