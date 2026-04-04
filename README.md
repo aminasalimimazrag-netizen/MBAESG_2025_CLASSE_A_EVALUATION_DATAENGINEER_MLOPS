@@ -230,3 +230,59 @@ MAE      : 10 677
 | **pandas / numpy** | Manipulation des données |
 | **matplotlib / seaborn** | Visualisation |
 | **Streamlit in Snowflake** | Application utilisateur finale |
+
+
+# Section 3 — MLOps, Inférence & Application Streamlit
+
+## Enregistrement dans le Snowflake Model Registry
+
+Le modèle final a été enregistré dans le **Snowflake Model Registry** avec support d'inférence en Warehouse :
+
+| Propriété | Valeur |
+|-----------|--------|
+| **Modèle** | HOUSE_PRICE_MODEL |
+| **Version** | V1 |
+| **Registry** | HOUSE_PRICE_DB.ML_SCHEMA |
+| **Stage** | @HOUSE_PRICE_DB.ML_SCHEMA.model_stage |
+| **Platform** | WAREHOUSE |
+| **R²** | 0.9265 |
+| **RMSE** | 25 594 |
+| **MAE** | 10 677 |
+
+---
+
+## Création d'une UDF Snowflake pour l'inférence
+
+Pour permettre l'inférence depuis Streamlit sans dépendances externes, une **Python UDF** a été créée directement dans Snowflake :
+
+| Propriété | Valeur |
+|-----------|--------|
+| **Nom** | `ML_SCHEMA.PREDICT_HOUSE_PRICE` |
+| **Langage** | Python 3.11 |
+| **Packages** | scikit-learn, xgboost, pandas, cloudpickle |
+| **Imports** | `best_model.pkl.gz`, `scaler.pkl.gz` depuis `@model_stage` |
+| **Fonctionnement** | Reçoit les 12 caractéristiques, applique le scaler et retourne le prix prédit |
+
+---
+
+## Application Streamlit
+
+### Description
+Une application interactive développée avec **Streamlit in Snowflake** permet à n'importe quel utilisateur d'estimer le prix d'une maison en temps réel, sans aucune connaissance technique.
+
+### Fonctionnalités
+- Formulaire de saisie des 12 caractéristiques de la maison dans la sidebar
+- Appel à la UDF Snowflake via SQL pour obtenir la prédiction
+- Affichage du prix estimé en euros
+- Tableau récapitulatif des caractéristiques saisies
+
+
+### Exemple de prédiction
+Pour une maison de **5 000 sqft**, **3 chambres**, **1 salle de bain**, **2 étages**, avec climatisation :
+> 💵 **Prix estimé : 384 179 €**
+
+### Lancer l'application
+L'application est hébergée directement dans **Snowflake Streamlit Apps** :
+1. Aller dans Snowflake → **Projects → Streamlit**
+2. Ouvrir **app_streamlit**
+3. Cliquer sur **Run**
