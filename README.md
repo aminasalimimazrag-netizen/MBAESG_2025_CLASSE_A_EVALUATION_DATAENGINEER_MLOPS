@@ -59,8 +59,6 @@ Le dataset contient des informations clés sur les caractéristiques des habitat
 
 ## Description du Dataset ##
 
-Ce projet s'appuie sur un jeu de données immobilier regroupant les caractéristiques de diverses habitations ainsi que leurs prix de vente respectifs. L'objectif est de comprendre l'influence de facteurs clés (surface, nombre de pièces, équipements) sur la valeur marchande d'un bien immobilier.
-
 **Variable Cible (Target - y)**
 **PRICE** : Le prix de vente final de la maison (Variable numérique continue).
 
@@ -85,17 +83,6 @@ Chargement des données dans la table finale HOUSE_DATA via la commande COPY INT
 
 ## Analyse Exploratoire des Données (EDA) ##
 Avant la phase de modélisation, une exploration approfondie a été réalisée à l'aide de Snowpark Python, Matplotlib et Seaborn.
-
-**Statistiques et Qualité**
-
-**Vérification des données** : Le dataset a été contrôlé pour détecter d'éventuelles valeurs nulles (0 valeur manquante identifiée lors de l'ingestion).
-**Analyses descriptives** : Calcul automatique des moyennes, écarts-types, minimums et maximums pour l'ensemble des variables numériques.
-
-**Visualisations clés**
-
-**Distribution des prix** : L'analyse de la variable cible montre une distribution normale avec une légère asymétrie vers les prix élevés, typique du marché immobilier de luxe.
-**Matrice de corrélation** : Nous avons mis en évidence une corrélation positive significative entre la surface (AREA) et le prix de vente (PRICE).
-**Analyse catégorielle** : Visualisation de l'impact de la climatisation et de l'état d'ameublement sur la valeur des propriétés.
 
 ## Analyse Exploratoire des Données (EDA) ##
 ### 1. Configuration de l'environnement
