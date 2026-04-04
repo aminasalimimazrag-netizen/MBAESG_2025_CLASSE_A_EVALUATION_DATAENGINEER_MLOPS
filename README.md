@@ -1,22 +1,97 @@
 # MBAESG_2025_CLASSE_A_EVALUATION_DATAENGINEER_MLOPS
 **Projet Snowflake & Machine Learning - Prédiction des prix des maisons**
 
-## 👥 Membres du groupe
+## Membres du groupe
 *   **SALIMI MAZRAG AMINA** (Chef de Projet & Data Engineer)
 *   **EL MANSOUF NAJOUA** (Data Scientist)
 *   **EL FATHI HAJAR** (Data Scientist)
 
 ---
 
-## 🚀 Description du Projet
+## Description du Projet
 Ce projet consiste à développer un pipeline complet de **Machine Learning** directement au sein de la plateforme **Snowflake**. L'objectif est de construire un modèle prédictif capable d'estimer le prix de vente des propriétés immobilières en fonction de diverses caractéristiques (surface, nombre de chambres, climatisation, etc.).
 
 L'ensemble du workflow est réalisé sans extraction de données, en utilisant les capacités de calcul de Snowflake et de **Snowpark**.
 
+## Technologies utilisées ##
+**Snowflake**: Plateforme de données cloud et moteur de calcul.
+**Snowpark** : Pour la manipulation des données en Python et SQL.
+**Snowflake ML & Model Registry** : Pour l'entraînement, l'optimisation et la gestion des versions du modèle.
+**Streamlit** : Pour la création d'une application interactive de prédiction.
+
+## Étapes du Workshop ##
+**Ingestion et Exploration (EDA)** : Chargement des données depuis S3 et analyse des corrélations entre les variables.
+**Préparation des données** : Nettoyage, encodage des variables catégorielles et normalisation.
+**Entraînement du modèle** : Utilisation de bibliothèques ML (Scikit-learn / XGBoost) pour entraîner les modèles.
+**Évaluation et Optimisation** : Calcul des métriques de performance (Accuracy, RMSE, MAE) et réglage des hyperparamètres (Grid Search).
+**Gouvernance (Model Registry)** : Enregistrement du meilleur modèle dans le registre Snowflake pour la mise en production.
+**Inférence et Application** : Développement d'une application Streamlit permettant aux utilisateurs de saisir des caractéristiques de maison et d'obtenir un prix estimé en temps réel.
+
+## Structure du dépôt ##
+???
+## Description du Dataset ##
+
+Le dataset contient des informations clés sur les caractéristiques des habitations. Voici le détail des variables :
+
+**Price** : Prix de vente de la maison (Variable cible).
+**Area** : Surface totale en mètres carrés.
+**Bedrooms** : Nombre de chambres.
+**Bathrooms** : Nombre de salles de bain.
+**Stories** : Nombre d'étages.
+**Mainroad** : Accès à une route principale (OUI/NON).
+**Guestroom** : Présence d'une chambre d'amis (OUI/NON).
+**Basement** : Présence d'un sous-sol (OUI/NON).
+**Hotwaterheating** : Présence d'un chauffage à eau chaude (OUI/NON).
+**Airconditioning** : Présence de la climatisation (OUI/NON).
+**Parking** : Nombre de places de stationnement.
+**Prefarea** : Située dans une zone privilégiée (OUI/NON).
+**Furnishingstatus** : État d'ameublement (meublé, semi-meublé, non meublé).
+
 ---
 
-## 🛠️ Section 1 : Data Engineering & Exploration des Données (EDA)
+## Section 1 : Data Engineering & Exploration des Données (EDA)
 
+## Description du Dataset ##
+
+Ce projet s'appuie sur un jeu de données immobilier regroupant les caractéristiques de diverses habitations ainsi que leurs prix de vente respectifs. L'objectif est de comprendre l'influence de facteurs clés (surface, nombre de pièces, équipements) sur la valeur marchande d'un bien immobilier.
+
+**Variable Cible (Target - y)**
+**PRICE** : Le prix de vente final de la maison (Variable numérique continue).
+
+**Variables Explicatives (Features - X)**
+**AREA** : Surface totale en mètres carrés.
+**BEDROOMS / BATHROOMS** : Nombre de chambres et de salles de bain.
+**STORIES** : Nombre total d'étages dans la maison.
+**MAINROAD / AIRCONDITIONING / BASEMENT** : Variables catégorielles indiquant la présence d'infrastructures ou d'équipements spécifiques (Yes/No).
+**PARKING** : Nombre de places de stationnement disponibles.
+**FURNISHINGSTATUS** : État d'ameublement de la maison (Furnished, Semi-furnished, Unfurnished).
+
+## Processus d'Ingestion (Data Engineering) ##
+
+L'ensemble du pipeline de données a été développé directement au sein de l'environnement Snowflake pour garantir la gouvernance et l'élasticité du traitement.
+
+**Configuration de l'environnement** : Création d'une base de données dédiée HOUSE_PRICE_DB et d'un schéma RAW_DATA.
+**Ingestion des données** :
+Mise en place d'un STAGE externe pointant vers un bucket S3 (s3://logbrain-datalake/...).
+Définition d'un FILE FORMAT CSV pour structurer la lecture des fichiers bruts.
+Chargement des données dans la table finale HOUSE_DATA via la commande COPY INTO.
+**Outils utilisés** : Snowflake SQL et Snowpark Python.
+
+## Analyse Exploratoire des Données (EDA) ##
+Avant la phase de modélisation, une exploration approfondie a été réalisée à l'aide de Snowpark Python, Matplotlib et Seaborn.
+
+**Statistiques et Qualité**
+
+**Vérification des données** : Le dataset a été contrôlé pour détecter d'éventuelles valeurs nulles (0 valeur manquante identifiée lors de l'ingestion).
+**Analyses descriptives** : Calcul automatique des moyennes, écarts-types, minimums et maximums pour l'ensemble des variables numériques.
+
+**Visualisations clés**
+
+**Distribution des prix** : L'analyse de la variable cible montre une distribution normale avec une légère asymétrie vers les prix élevés, typique du marché immobilier de luxe.
+**Matrice de corrélation** : Nous avons mis en évidence une corrélation positive significative entre la surface (AREA) et le prix de vente (PRICE).
+**Analyse catégorielle** : Visualisation de l'impact de la climatisation et de l'état d'ameublement sur la valeur des propriétés.
+
+## Analyse Exploratoire des Données (EDA) ##
 ### 1. Configuration de l'environnement
 L'initialisation du projet a été faite via un **Snowflake Notebook**. Nous avons configuré la base de données `HOUSE_PRICE_DB` et le schéma `RAW_DATA` pour garantir une structure de données propre.
 
